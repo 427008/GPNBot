@@ -1,0 +1,43 @@
+﻿{
+    "ios": {
+        "debug": {
+            "codeSignIdentity": "iPhone Developer",
+            "developmentTeam": "Z7UCXL3FVW",
+            "provisioningProfile": "SKILLUNION PROFILE AppStore",
+            "packageType": "development",
+
+            "buildFlag": [
+                "SWIFT_VERSION=5",
+                "EMBEDDED_CONTENT_CONTAINS_SWIFT=YES"
+            ]
+
+
+        },
+        "release": {
+            "codeSignIdentity": "iPhone Distribution",
+            "developmentTeam": "Z7UCXL3FVW",
+            "provisioningProfile": "SKILLUNION PROFILE AppStore",
+            "packageType": "app-store",
+            "buildFlag": [
+                "SWIFT_VERSION=5",
+                "EMBEDDED_CONTENT_CONTAINS_SWIFT=YES"
+            ]
+        }
+    },
+    "android": {
+        "debug": {
+            "keystore": "certificates/android/gpn-release.keystore",
+            "storePassword": "123456",
+            "alias": "gpn",
+            "password": "123456",
+            "keystoreType": ""
+        },
+        "release": {
+            "keystore": "certificates/android/gpn-release.keystore",
+            "storePassword": "123456",
+            "alias": "gpn",
+            "password": "123456",
+            "keystoreType": ""
+        }
+    }
+}

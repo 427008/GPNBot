@@ -1,0 +1,47 @@
+{
+    "data": [
+        {
+            "id": 123,
+            "companyType": 1,
+            "companyName": "&nbsp;",
+            "inn": "7813449187",
+            "kpp": "781301001",
+            "ogrn": "109784721101",
+            "okved": "62.01",
+            "lastName": "Проверка",
+            "firstName": "Работы",
+            "middleName": "Интересов",
+            "email": "example@email.net",
+            "mobile": "555-55-55",
+            "interestsTags": [
+                {
+                    "id": 1,
+                    "value": true
+                },
+                {
+                    "id": 2,
+                    "value": true
+                },
+                {
+                    "id": 3,
+                    "value": false
+                },
+                {
+                    "id": 4,
+                    "value": false
+                },
+                {
+                    "id": 5,
+                    "value": true
+                },
+                {
+                    "id": 6,
+                    "value": false
+                }
+            ]
+        }
+    ],
+    "message": "",
+    "success": true,
+    "total": 1
+}

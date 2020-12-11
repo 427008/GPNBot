@@ -1,0 +1,86 @@
+
+$enable-font-awesome: dynamic(false);
+
+:focus {
+    outline: none;
+}
+
+.x-ios-native:not(.x-phone.x-landscape) {
+    padding-top: 0px !important;
+}
+
+.x-ios-native.x-phone.x-landscape {
+    padding-top: 8px !important;
+}
+
+body {
+    background-color: $alt-background-color;
+}
+
+.x-viewport:not(.x-phone.x-landscape) {
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-top: env(safe-area-inset-top);
+}
+
+// Для floating элементов
+.x-float-wrap.x-root {
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-top: env(safe-area-inset-top);
+    // Поддержка Ext.Viewport.Menu
+    .x-menu-cover {
+        margin-bottom: env(safe-area-inset-bottom);
+        margin-top: env(safe-area-inset-top);
+    }
+    // Поддержка Ext.Dialog
+    .x-dialog {
+        margin-bottom: env(safe-area-inset-bottom);
+        margin-top: env(safe-area-inset-top);
+    }
+    // Поддержка Ext.Toast
+    .x-toast {
+        margin-top: env(safe-area-inset-top);
+    }
+}
+
+.x-viewport .x-viewport-body-el {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.x-small-header {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px;
+    color: #808080;
+    margin: 10px 0;
+
+    .x-innerhtml {
+        display: flex;
+
+        span:first-child {
+            //font-size: 17px;
+        }
+
+        span:last-child {
+            color: $base-color;
+        }
+    }
+
+    &.x-component-faded {
+        color: $background-color;
+    }
+}
+
+
+@-webkit-keyframes autofill {
+    to {
+        color: inherit;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}

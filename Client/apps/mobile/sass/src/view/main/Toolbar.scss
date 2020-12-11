@@ -1,0 +1,54 @@
+﻿
+.x-icon-chat {
+    background-image: theme-background-image('icons/chat', 'svg');
+
+    .x-tabbar-footer & {
+        background-image: none;
+        -webkit-mask-image: theme-background-image('icons/chat', 'svg');
+        mask-image: theme-background-image('icons/chat', 'svg');
+        background-size: auto !important;
+        background-color: $color;
+        width: 28px !important;
+    }
+
+    .x-tabbar-footer .x-active & {
+        background-color: $base-color;
+    }
+}
+
+.x-icon-notices {
+    background-image: theme-background-image('icons/notices', 'svg');
+
+    .x-tabbar-footer & {
+        -webkit-mask-image: theme-background-image('icons/notices', 'svg');
+        mask-image: theme-background-image('icons/notices', 'svg');
+        background-size: auto !important;
+        background-color: $color;
+        width: 18px !important;
+    }
+
+    .x-tabbar-footer .x-active & {
+        background-color: $base-color;
+    }
+}
+
+.x-icon-burger {
+    background-image: theme-background-image('icons/burger', 'svg');
+}
+
+.x-icon-back {
+    background-image: theme-background-image('icons/back', 'svg');
+}
+
+.x-main-toolbar {
+
+    .x-button .x-inner-el {
+        padding: 5px;
+
+        .x-mi.mi-forum-outline {
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
+

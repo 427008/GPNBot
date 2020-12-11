@@ -1,0 +1,14 @@
+
+
+@import 'themes/Color';
+@import 'themes/Button';
+@import 'themes/Field';
+@import 'themes/Toolbar';
+@import 'themes/TabBar';
+@import 'themes/Slider';
+@import 'themes/Panel';
+//@import 'fonts/sfpro';
+
+$font-family: dynamic('DIN Pro', Arial);
+//$indicator-size: dynamic(13px);
+$indicator-active-size: dynamic($indicator-size);

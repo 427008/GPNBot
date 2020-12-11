@@ -1,0 +1,23 @@
+{
+    "apps": [
+        "apps/mobile"
+    ],
+
+    "frameworks": {        
+        "ext": {
+            "path":"ext",
+            "version":"6.5.2.463"
+        }
+
+    },
+
+
+    "build": {
+        "dir": "${workspace.dir}/build"
+    },
+
+    "packages": {
+        "dir": "${workspace.dir}/packages",
+        "extract": "${workspace.dir}/packages/remote"
+    }
+}

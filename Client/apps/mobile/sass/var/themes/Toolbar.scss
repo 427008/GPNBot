@@ -1,0 +1,22 @@
+﻿
+//$toolbar-background-color: dynamic($background-color);
+//$toolbar-padding-big: dynamic(10px 12px);
+//$toolbar-title-font-family: dynamic('DIN Pro Cond', Arial, Helvetica, sans-serif);
+
+$toolbar-header-ui: dynamic((
+    background-color: $base-color,
+    border-width: 0,
+    //border-style: solid,
+    //border-color: $overlay-color,
+    padding-big: 10px 12px,
+    title-color: $background-color,
+    line-height: 19px,
+    //title-font-size: 13px,
+    //title-font-size-big: 18px,
+    title-font-weight: 500,
+    //title-font-family: 'DIN Pro Cond' Arial Helvetica sans-serif,
+    //title-padding: 0 16px,
+    title-padding-big: 0 27px,
+    min-height-big: 54px
+
+));

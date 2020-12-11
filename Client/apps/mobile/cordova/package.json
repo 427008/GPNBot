@@ -1,0 +1,56 @@
+{
+    "name": "ru.skillunion.gpnbot",
+    "displayName": "GPNBot",
+    "version": "1.0.0",
+    "description": "A sample Apache Cordova application that responds to the deviceready event.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "ecosystem:cordova"
+    ],
+    "author": "Apache Cordova Team",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "cordova-android": "^9.0.0",
+        "cordova-plugin-dialogs": "^2.0.2",
+        "cordova-plugin-keyboard": "^1.2.0",
+        "cordova-plugin-network-information": "^2.0.2",
+        "cordova-plugin-pdialog": "^2.0.1",
+        "cordova-plugin-splashscreen": "^6.0.0",
+        "cordova-plugin-statusbar": "^2.4.3",
+        "cordova-plugin-x-toast": "^2.7.2"
+    },
+    "cordova": {
+        "plugins": {
+            "cordova-plugin-pdialog": {},
+            "cordova-plugin-dialogs": {},
+            "cordova-plugin-x-toast": {},
+            "cordova-plugin-network-information": {},
+            "cordova-plugin-statusbar": {},
+            "cordova-plugin-splashscreen": {},
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-keyboard": {},
+            "cordova-plugin-media-capture": {},
+            "cordova-plugin-camera": {
+                "ANDROID_SUPPORT_V4_VERSION": "27.+"
+            },
+            "cordova-plugin-media": {},
+            "cordova-plugin-device": {},
+            "cordova-plugin-inappbrowser": {}
+        },
+        "platforms": [
+            "android"
+        ]
+    },
+    "devDependencies": {
+        "cordova-plugin-camera": "^5.0.0",
+        "cordova-plugin-device": "^2.0.3",
+        "cordova-plugin-file": "^6.0.2",
+        "cordova-plugin-inappbrowser": "^4.0.0",
+        "cordova-plugin-media": "^5.0.3",
+        "cordova-plugin-media-capture": "^3.0.3",
+        "cordova-plugin-whitelist": "1"
+    }
+}

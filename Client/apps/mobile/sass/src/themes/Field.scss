@@ -1,0 +1,134 @@
+﻿.x-field {
+
+    &:not(.x-field-solo) {
+        .x-input-wrap-el {
+            padding-bottom: 8px;
+        }
+    }
+
+    &:not(.x-field-solo).x-layout-auto-item:last-child,
+    &:not(.x-field-solo).x-layout-vbox-item:last-child {
+        //padding-bottom: 8px;
+    }
+
+    &.x-label-align-vertical {
+
+        .x-label-el {
+            //font-size: 13px;
+            //font-weight: normal;
+        }
+    }
+    //&.x-label-align-horizontal {
+    //    input {
+    //        text-align: end;
+    //    }
+    //}
+    /*&.x-required > .x-label-el:after {
+        color: $alert-color;
+    }*/
+    > * > * > * > .x-box-label-el {
+        white-space: pre-line;
+    }
+
+    > * > * > * > .x-box-el {
+        min-width: 26px;
+    }
+
+    .x-expandtrigger .x-icon-el:before {
+        content: '\F140';
+        font-family: materialdesignicons-webfont !important;
+    }
+
+    .x-datetrigger .x-icon-el:before {
+        content: '\F678';
+        font-family: materialdesignicons-webfont !important;
+    }
+
+    &.x-disabled {
+        .x-underline-el {
+            border-color: $disabled-color;
+            background-color: $disabled-color;
+        }
+
+        .x-trigger .x-icon-el {
+            color: $disabled-color;
+        }
+        /*&:not(.x-field-readonly) .x-input-wrap-el {
+            border-color: $disabled-color !important;
+        }*/
+        &.x-box-labeled > * > * > * > .x-box-label-el {
+            color: $disabled-color;
+        }
+    }
+
+    &.x-field-readonly {
+        /*& .x-underline-el {
+            display: none;
+        }*/
+        & .x-after-input-el {
+            display: none;
+        }
+
+        &.x-disabled {
+            > .x-label-el {
+                color: $color;
+            }
+
+            .x-input-wrap-el {
+                color: $reverse-color;
+            }
+
+            &.x-box-labeled > * > * > * > .x-box-label-el {
+                color: $color;
+            }
+        }
+    }
+
+    &.x-checkboxfield {
+
+        .x-icon-el {
+            font-family: materialdesignicons-webfont;
+            width: 23px;
+            height: 23px;
+
+            &:before {
+                font-size: 26px;
+                content: '\F130';
+            }
+        }
+
+        &.x-checked .x-icon-el:before {
+            content: '\F5E0';
+        }
+    }
+    /*&.x-field-faded.x-focused > .x-label-el,
+    &.x-field-faded > .x-label-el {
+        color: $background-color;
+    }*/
+}
+
+// solo
+.x-field-solo {
+
+    > .x-body-wrap-el {
+        border-radius: 19px;
+    }
+
+    .x-input-wrap-el {
+        min-height: 32px;
+        border-radius: 19px;
+    }
+
+    .x-underline-el {
+        display: none;
+    }
+}
+
+
+@include field-ui(map-merge((ui: 'faded'), $textfield-faded-ui)...);
+
+@include checkboxfield-ui(map-merge((ui: 'faded'), ( box-label-color: $color ))...);
+
+.x-checkboxfield:not(.x-field-solo), .x-togglefield {
+    border-bottom: 1px solid #ccc;
+}

@@ -1,0 +1,12 @@
+**/build
+bootstrap.*
+classic.json*
+modern.json*
+.sencha
+/packages/remote
+/apps/mobile/cordova/node_modules
+/apps/mobile/cordova/platforms
+/apps/mobile/cordova/plugins
+/apps/mobile/cordova/www
+/apps/mobile/cordova/package-lock.json
+version.properties

@@ -1,0 +1,53 @@
+﻿
+.x-tabbar {
+    @include background-gradient(#e72a5f, (#e72a5f 0%, #e72a5f 19%, #e72a5f 22%, #3a3286 79%, #3a3286 84%, #323d8d 91%, #323d8d 100%), 0deg);
+}
+
+.x-tabbar.x-docked-bottom .x-active-indicator-el {
+    display: none;
+}
+
+@include tabbar-ui(map-merge((ui: plain), (
+    background-color: transparent,
+    font-weight: bold,
+    active-indicator-height: 0
+))...);
+
+@include tab-ui(map-merge((ui: plain), (
+    color: $base-color,
+    active-color: $base-color,
+    focused-color: $base-color,
+    hovered-color: $base-color,
+    pressed-color: $base-color,
+    presing-color: $base-color,
+    active-focused-color: $base-color,
+    font-weight: bold,
+    border-width: 1px,
+    border-style: solid,
+    border-color: transparent,
+    pressing-border-color: $base-color,
+    pressed-border-color: $base-color,
+    border-radius: 21px,
+    border-radius-big: 21px,
+    padding: 4px,
+    active-border-color: $base-color,
+    active-indicator-height: 0
+))...);
+
+.x-tab-plain.x-has-text .x-inner-el {
+    margin: 4px 8px;
+}
+
+.x-tabbar-footer {
+    @include tab-ui(map-merge((), ( 
+        background-color: #f7f7f7, 
+        hovered-background-color: #f7f7f7, 
+        pressed-background-color: #f7f7f7, 
+        active-background-color: #f7f7f7, 
+        font-weight: bold, 
+        active-indicator-height: 0, 
+        active-color: $base-color, 
+        icon-vertical-spacing: 0, 
+        icon-vertical-spacing-big: 0 
+    ))...);
+}

@@ -1,0 +1,1 @@
+keytool -genkey -keystore gpn-release.keystore -storepass 123456 -alias gpn -keypass 123456 -dname “CN=Sergey Palchun O=Skill Union C=RU” -validity 10000

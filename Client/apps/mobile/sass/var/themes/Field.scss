@@ -1,0 +1,106 @@
+﻿
+$field-label-color: dynamic($color);
+$field-focused-label-color: dynamic($color);
+//$field-label-font-family: dynamic($font-family);
+
+$field-label-font-weight: bold;
+
+$field-label-font-size: dynamic(17px);
+$field-label-font-size-big: dynamic(null);
+
+$field-label-line-height: dynamic(19px);
+$field-label-line-height-big: dynamic(null);
+
+$field-label-padding: dynamic(8px 8px 8px 0);
+$field-label-padding-big: dynamic(null);
+$field-vertical-spacing: dynamic(16px);
+$field-vertical-spacing-big: dynamic(null);
+$field-required-indicator-margin: dynamic(-3px null null 2px);
+$field-required-indicator-margin-big: dynamic(null null null 2px);
+$field-label-width: dynamic(auto);
+$field-label-width-big: dynamic(null);
+
+$field-box-label-color: dynamic($color);
+$field-box-label-font-size: dynamic(15px);
+$field-box-label-font-size-big: dynamic(null);
+$field-box-label-font-weight: dynamic(normal);
+
+$field-error-icon-side-size-big: dynamic(null);
+//$field-error-icon-under-size-big: dynamic(20px);
+$field-error-under-margin-big: dynamic(2px 0);
+$field-error-icon-under-font-size-big: dynamic(20px);
+$field-error-message-font-size: dynamic(14px);
+$field-error-message-font-size-big: dynamic(null);
+$field-error-message-line-height-big: dynamic(null);
+
+$textfield-input-border-width: dynamic(0);
+$textfield-input-border-style: dynamic(solid);
+$textfield-input-border-color: dynamic($divider-color);
+$textfield-focused-input-border-color: dynamic($base-color);
+$textfield-disabled-input-border-color: dynamic($reverse-color);
+
+$textfield-input-font-weight: dynamic(400);
+$textfield-input-font-weight-big: dynamic(500);
+$textfield-input-font-size: dynamic(17px);
+$textfield-input-font-size-big: dynamic(null);
+$textfield-input-line-height: dynamic(20px);
+$textfield-input-line-height-big: dynamic(null);
+$textfield-input-font-weight: dynamic(normal);
+$textfield-input-padding: dynamic(4px 5px);
+$textfield-input-padding-big: dynamic(null);
+
+$textfield-placeholder-color: dynamic($reverse-color);
+$textfield-disabled-placeholder-color: dynamic($reverse-color);
+//$textfield-input-underline-color: dynamic(transparent);
+$textfield-input-underline-color: dynamic(#ccc);
+$textfield-focused-input-underline-color: dynamic(#ccc);
+
+$trigger-icon-color: dynamic($color);
+//$trigger-width-big: dynamic(36px);
+$trigger-icon-font-size: dynamic(24px);
+//$trigger-icon-font-big: dynamic(30px);
+$trigger-hovered-icon-color: dynamic(mix(#000, $trigger-icon-color, 8%));
+$trigger-pressed-icon-color: dynamic(mix(#000, $trigger-icon-color, 15%));
+
+
+$textfield-solo-ui: dynamic((
+    input-background-color: $background-color,
+    input-color: $base-color,
+    input-border-width: 0,
+    input-padding: 8px 5px,
+    placeholder-color: rgba($base-color, .7),
+    border-radius: 19px,
+    error-under-margin: 0px,
+    error-under-margin-big: 0px
+));
+
+$trigger-solo-ui: dynamic((
+    icon-color: $base-color,
+    icon-font-size-big: 30px,
+    icon-size-big: 36px
+));
+
+$textfield-faded-ui: dynamic((
+    //label-color: $background-color,
+    //focused-label-color: $background-color,
+    //input-background-color: rgba(0, 0, 0, 0),
+    //focused-input-background-color: rgba(0, 0, 0, 0),
+    //input-color: $background-color,
+    //focused-input-color: $background-color,
+    input-border-width: 0
+    //placeholder-color: $background-color,
+    //focused-placeholder-color: $background-color,
+    //error-icon-under-color: $background-color,
+    //error-message-color: $background-color
+    //trigger-icon-color: $background-color
+));
+
+//$trigger-faded-ui: dynamic((
+//    icon-color: $background-color,
+//    hovered-icon-color: $background-color,
+//    pressed-icon-color: $background-color
+//));
+
+.x-float-wrap > .x-floated {
+    min-height: 200px;
+}

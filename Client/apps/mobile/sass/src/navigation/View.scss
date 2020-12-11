@@ -1,0 +1,140 @@
+﻿
+.x-nav-mask {
+    background-color: #ccc;
+    opacity: .5;
+}
+
+.x-nav-slid-out {
+    left: -100% !important;
+}
+
+.x-nav-floated {
+    //@include background-gradient(#e72a5f, (#e72a5f 0%, #e72a5f 7%,#e72a5f 9%, #3a3286 26%, #3a3286 53%, #323d8d 74%, #323d8d 100%), 45deg);
+    background-color: $base-color; // #004077
+    transition: left 0.3s;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10;
+
+    .x-ios-native.x-phone.x-landscape & {
+        margin-top: 8px;
+    }
+
+    .x-version {
+        color: $background-color;
+        text-align: start;
+    }
+}
+
+.x-treelist-nav .x-treelist-row.nav-tree-badge:before {
+    content: ' ';
+    position: absolute;
+    background-color: $accent-color;
+    border-radius: 100%;
+    height: 10px;
+    width: 10px;
+    left: 40px;
+    top: 8px;
+}
+
+.x-treelist-nav .x-treelist-item-selected > .x-treelist-row:before {
+    background-color: $base-color;
+    border-radius: 100%;
+    height: 10px;
+    width: 10px;
+    right: 15px;
+    left: unset;
+    top: 15px;
+}
+
+.x-user-info-photo {
+    height: 40px;
+    width: 40px;
+    margin: 16px;
+    margin-bottom: 0;
+}
+
+.x-user-info {
+    background-color: transparent;
+    padding: 16px;
+    display: block;
+    vertical-align: top;
+    color: $background-color;
+
+    .x-innerhtml {
+        display: flex;
+
+        .x-user-info-name {
+            font-size: 14px;
+            font-weight: bold;
+            white-space: pre-wrap;
+            min-height: 36px;
+            width: 200px;
+            line-height: 17px;
+            //text-decoration-line: underline;
+            span {
+                display: block;
+
+                &:last-child {
+                    margin-top: 10px;
+                    font-weight: normal;
+                    border-bottom: 1px solid #ccc;
+                    padding-bottom: 12px;
+                }
+            }
+        }
+
+        .x-user-info-company {
+            font-size: 14px;
+            white-space: pre-wrap;
+            min-height: 36px;
+            width: 200px;
+            line-height: 17px;
+        }
+    }
+}
+
+.x-social-info {
+    height: 10%;
+    padding: 0px 17px;
+
+    .x-social-info-item.x-button {
+        .x-inner-el {
+            padding: 6px;
+        }
+
+        .x-icon-el {
+            width: 21px;
+            height: 21px;
+
+            &:before {
+                font-size: 24px;
+                color: $base-light-color;
+            }
+        }
+    }
+    /*.x-icon-vk {
+            background-image: theme-background-image('icons/social/vk', 'svg');
+        }
+
+        .x-icon-fb {
+            background-image: theme-background-image('icons/social/fb', 'svg');
+        }
+
+        .x-icon-ig {
+            background-image: theme-background-image('icons/social/insta', 'svg');
+        }
+
+        .x-icon-tw {
+            background-image: theme-background-image('icons/social/twitter', 'svg');
+        }
+
+        .x-icon-yt {
+            background-image: theme-background-image('icons/social/youtube', 'svg');
+        }
+
+        .x-icon-ok {
+            background-image: theme-background-image('icons/social/odnoklas', 'svg');
+        }*/
+}

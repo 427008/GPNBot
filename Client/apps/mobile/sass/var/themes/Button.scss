@@ -1,0 +1,72 @@
+﻿
+$button-color: $color;
+//$button-border-color: $divider-color;
+//$button-border-width: dynamic(1px);
+//$button-border-style: dynamic(solid);
+//$button-border-radius: dynamic(4px);
+$button-font-weight: dynamic(bold);
+$button-icon-size: dynamic(17px);
+$button-icon-size-big: dynamic(17px);
+$button-padding: dynamic(9px);
+$button-padding-big: dynamic(null);
+$button-icon-only-padding: dynamic(9px);
+$button-icon-only-padding-big: dynamic(null);
+$button-text-transform: dynamic(normal);
+//$button-line-height: dynamic(22px);
+$button-font-size: dynamic(17px);
+$button-font-size-big: dynamic(17px);
+$button-font-weight: dynamic(normal);
+
+
+$button-badge-font-size: dynamic(1px);
+$button-badge-font-size-big: dynamic(1px);
+$button-badge-line-height: dynamic(1px);
+$button-badge-line-height-big: dynamic(1px);
+$button-badge-max-width: dynamic(9px);
+$button-badge-min-width: dynamic(9px);
+
+$button-action-ui: dynamic(( 
+    background-color: $base-color, 
+    border-width: 0 
+));
+
+/*$button-alt-ui: dynamic(( 
+    //background-color: #1e896f, 
+    //pressed-background-color: darken(#1e896f, 10%), 
+    //hovered-background-color: desaturate(darken(#1e896f, 10%), 5%), 
+    //border-width: 0
+    color: $background-color
+));*/
+
+/*$button-segmented-ui: dynamic(( 
+    color: #fff, 
+    background-color: #a5b4c9, 
+    pressed-background-color: #0351c1, 
+    hovered-background-color: #a5b4c9, 
+    border-width: 0, 
+    icon-size: 42px, 
+    padding: 12px 7px 
+));*/
+
+//$button-action-ui: dynamic((
+    //background-color: #1e896f,
+    //pressed-background-color: darken(#1e896f, 10%),
+    //hovered-background-color: desaturate(darken(#1e896f, 10%), 5%),
+    //border-width: 0
+    //color: $alt-background-color
+//));
+
+$button-confirm-ui: dynamic((
+    color: #fff, 
+    background-color: $base-color,
+    pressed-background-color: $base-color, 
+    hovered-background-color: $base-color,
+    box-shadow: (2px 2px 5px 0 rgba(0, 0, 0, 0.12), 2px 2px 5px 0 rgba(0, 0, 0, 0.08))
+));
+
+$button-header-ui: dynamic(( 
+    color: #fff, 
+    pressed-background-color: transparent, 
+    hovered-background-color: transparent,
+    pressed-color: $color
+));

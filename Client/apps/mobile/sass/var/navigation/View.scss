@@ -1,0 +1,37 @@
+﻿
+//$navigation-header-background-color: dynamic($base-color);
+//$navigation-background-color: dynamic(#32404e);
+
+$navigation-background-color: dynamic(transparent);
+$navigation-item-line-height: dynamic(40px);
+$navigation-item-text-color: dynamic($background-color);
+
+$treelist-nav-ui: (
+    padding: 0 10px, 
+    background-color: $navigation-background-color, 
+    toolstrip-background-color: darken($navigation-background-color, 10%), 
+    tool-float-indicator-color: $base-color, 
+    tool-float-indicator-width: 0, 
+    tool-indicator-selected-color: $base-color, 
+    tool-indicator-selected-width: 5px, 
+    tool-selected-background-color: darken($navigation-background-color, 20%), 
+    item-expanded-background-color: darken($navigation-background-color, 5%), //#2c3845,
+    item-line-height: $navigation-item-line-height, 
+    row-over-background-color: darken($navigation-background-color, 15%), 
+    row-selected-background-color: darken($navigation-background-color, 20%), 
+    item-icon-color: $navigation-item-text-color, 
+    item-expander-color: $navigation-item-text-color, 
+    item-text-color: $navigation-item-text-color, //#ADB3B8,
+    item-icon-over-color: darken($navigation-item-text-color, 10%), 
+    item-expander-over-color: darken($navigation-item-text-color, 10%), 
+    item-text-over-color: darken($navigation-item-text-color, 10%), 
+    item-text-font-size: 18px, 
+    item-icon-font-size: 20px, 
+    item-icon-width: 24px, 
+    item-expander-font-size: 16px, 
+    item-expander-width: 24px, 
+    row-indicator-width: 5px, 
+    row-indicator-selected-color: $base-color, 
+    row-indicator-selected-over-color: lighten($base-color, 7%), 
+    row-indicator-over-color: transparent 
+);

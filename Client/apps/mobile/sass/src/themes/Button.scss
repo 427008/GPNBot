@@ -1,0 +1,11 @@
+﻿
+@include button-ui(map-merge((ui: header), $button-header-ui)...);
+
+.x-button-confirm {
+
+    &, &.x-pressing, &.x-pressed {
+        .x-inner-el {
+            @include background-gradient(#e72a5f, (#e72a5f 0%, #e72a5f 19%, #e72a5f 22%, #3a3286 79%, #3a3286 84%, #323d8d 91%, #323d8d 100%), 30deg);
+        }
+    }
+}

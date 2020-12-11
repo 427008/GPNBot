@@ -1,0 +1,25 @@
+﻿
+$base-color: dynamic(#0070ba);
+$background-color: dynamic(#ffffff);
+$alt-background-color: dynamic(#f7f7f7);
+
+$color: dynamic(#1a1a1a);
+$reverse-color: dynamic(#808080);
+$highlight-color: dynamic(#b3b3b3);
+$overlay-color: rgba(0, 0, 0, 0.12);
+$divider-color: dynamic(#747474);
+
+$selected-background-color: dynamic(#f0f0f0);
+$base-light-color: dynamic(lighten($base-color, 55%));
+$disabled-color: dynamic(rgba(63, 63, 63, 0.2));
+$base-highlight-color: dynamic(lighten($base-color, 15%));
+
+$ripple-background-color: dynamic(transparent);
+
+// #df2254
+// #f01441
+// #482786
+// #f37E3c
+// #e11e2c
+// #747474
+// #e22900

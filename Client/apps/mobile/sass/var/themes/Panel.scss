@@ -1,0 +1,22 @@
+﻿
+$panel-light-ui: dynamic((
+    header-font-size: 14px,
+    header-font-size-big: 14px,
+    header-line-height-big: 16px,
+    header-padding-big: 0 10px,
+    header-title-padding: 5px 0,
+    header-title-padding-big: 5px 0,
+    header-min-height-big: 36px,
+    background-color: $neutral-light-color,
+    border-color: mix($base-light-color, $neutral-light-color, 30%),
+    body-border-color: mix($base-light-color, $neutral-light-color, 30%),
+    header-background-color: mix($base-light-color, $neutral-light-color, 30%),
+    header-border-color: mix($base-light-color, $neutral-light-color, 30%),
+    header-color: #666,
+    header-icon-color: rgba(#666, .5),
+    tool-color: #666,
+    tool-focused-outline-color: $base-color
+));
+
+$sheet-background-color: dynamic(transparent);
+$sheet-padding: dynamic(8px);

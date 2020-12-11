@@ -1,0 +1,198 @@
+{
+    "builds": {
+        "web": {
+            "default": true,
+            "production": {
+                "js": [
+                    {
+                        "remote": true,
+                        "path": "cordova.js"
+                    }
+                ],
+
+                "output": {
+                    "base": "${app.dir}/cordova/www"
+                }
+            }
+        },
+        "android": {
+            "packager": "cordova",
+            "cordova": {
+                "config": {
+                    "platforms": "android",
+                    "id": "ru.skillunion.gpnbot",
+                    "name": "Газпром нефть"
+                }
+            }
+        },
+        "ios": {
+            "packager": "cordova",
+            "cordova": {
+                "config": {
+                    "platforms": "ios",
+                    "id": "ru.skillunion.gpnbot",
+                    "name": "Газпром нефть"
+                }
+            }
+        }
+    },
+
+
+    "name": "gpnbot",
+    "namespace": "GPNBot",
+    "version": "1.0.0",
+    "framework": "ext",
+    "toolkit": "modern",
+    "theme": "theme-material",
+    "locale": "ru",
+    "indexHtmlPath": "index.html",
+
+    "requires": [
+        "gpn",
+        "font-awesome",
+        "material-icons",
+        "din-pro",
+        "su",
+        "su-native",
+        "su-locale"
+    ],
+
+    "classpath": [
+        "app"
+    ],
+
+    "overrides": [
+        "overrides"
+    ],
+
+    "fashion": {
+        "missingParameters": "error",
+        "inliner": {
+            "enable": false
+        }
+    },
+
+    "sass": {
+        "namespace": "GPNBot",
+
+        "generated": {
+            "var": "sass/save.scss",
+            "src": "sass/save"
+        },
+        "etc": [
+            "sass/etc/all.scss"
+        ],
+        "var": [
+            "sass/var/all.scss",
+            "sass/var"
+        ],
+        "src": [
+            "sass/src/all.scss",
+            "sass/src"
+        ]
+    },
+
+    "js": [
+        {
+            "path": "config.js",
+            "remote": true
+        },
+        {
+            "path": "app.js",
+            "bundle": true
+        }
+    ],
+
+    "css": [
+        {
+            "path": "${build.out.css.path}",
+            "bundle": true,
+            "exclude": [ "fashion" ]
+        }
+    ],
+
+    "loader": {
+        "cache": false,
+        "cacheParam": "_dc"
+    },
+
+    "production": {
+        "output": {
+            "appCache": {
+                "enable": true,
+                "path": "cache.appcache"
+            }
+        },
+        "loader": {
+            "cache": "${build.timestamp}"
+        },
+        "cache": {
+            "enable": true
+        },
+        "compressor": {
+            "type": "yui"
+        }
+    },
+
+    "testing": {
+    },
+
+    "development": {
+        "watch": {
+            "delay": 250
+        }
+    },
+
+    "bootstrap": {
+        "base": "${app.dir}",
+        "microloader": "bootstrap.js",
+        "css": "bootstrap.css"
+    },
+
+    "output": {
+        "base": "${workspace.build.dir}/${app.name}/${build.environment}",
+        "css": "${app.output.css.dir}/styles.css",
+        "framework": {
+            "enable": true,
+            "path": "framework.js"
+        },
+        "appCache": {
+            "enable": false
+        }
+    },
+
+    "extras": [
+        "config.js"
+    ],
+
+    "cache": {
+        "enable": false,
+        "deltas": true
+    },
+
+    "appCache": {
+        "cache": [
+            "index.html"
+        ],
+        "network": [
+            "*"
+        ],
+        "fallback": []
+    },
+
+    "resources": [
+        {
+            "path": "resources",
+            "output": "shared"
+        }
+    ],
+
+    "archivePath": "archive",
+    "slicer": null,
+
+    "ignore": [
+        "(^|/)CVS(/?$|/.*?$)"
+    ],
+
+    "id": "55ed1f00-282d-40a9-9219-d17ac9afd5af"
+}

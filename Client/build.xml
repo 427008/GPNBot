@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="client" default=".help">
+
+    <script language="javascript">
+        <![CDATA[
+            var dir = project.getProperty("basedir"),
+                cmdDir = project.getProperty("cmd.dir"),
+                cmdLoaded = project.getReference("senchaloader");
+
+            if (!cmdLoaded) {
+                function echo(message, file) {
+                    var e = project.createTask("echo");
+                    e.setMessage(message);
+                    if (file) {
+                        e.setFile(file);
+                    }
+                    e.execute();
+                };
+
+                if (!cmdDir) {
+
+                    function exec(args) {
+                        var process = java.lang.Runtime.getRuntime().exec(args),
+                            input = new java.io.BufferedReader(new java.io.InputStreamReader(process.getInputStream())),
+                            headerFound = false,
+                            line;
+
+                        while (line = input.readLine()) {
+                            line = line + '';
+                            java.lang.System.out.println(line);
+                            if (line.indexOf("Sencha Cmd") > -1) {
+                                headerFound = true;
+                            }
+                            else if (headerFound && !cmdDir) {
+                                cmdDir = line;
+                                project.setProperty("cmd.dir", cmdDir);
+                            }
+                        }
+                        process.waitFor();
+                        return !!cmdDir;
+                    }
+
+                    if (!exec(["sencha", "which"])) {
+                        var tmpFile = "tmp.sh";
+                        echo("source ~/.bash_profile; sencha " + whichArgs.join(" "), tmpFile);
+                        exec(["/bin/sh", tmpFile]);
+                        new java.io.File(tmpFile)['delete'](); 
+                    }
+                }
+            }
+
+            if (cmdDir && !project.getTargets().containsKey("init-cmd")) {
+                var importDir = project.getProperty("build-impl.dir") || 
+                                (cmdDir + "/ant/build/package/build-impl.xml");
+                var importTask = project.createTask("import");
+
+                importTask.setOwningTarget(self.getOwningTarget());
+                importTask.setLocation(self.getLocation());
+                importTask.setFile(importDir);
+                importTask.execute();
+            }
+        ]]>
+    </script>
+
+    <!--
+    The following targets can be provided to inject logic before and/or after key steps
+    of the build process:
+
+        The "init-local" target is used to initialize properties that may be personalized
+        for the local machine.
+
+            <target name="-before-init-local"/>
+            <target name="-after-init-local"/>
+
+        The "clean" target is used to clean build output from the build.dir.
+
+            <target name="-before-clean"/>
+            <target name="-after-clean"/>
+
+        The general "init" target is used to initialize all other properties, including
+        those provided by Sencha Cmd.
+
+            <target name="-before-init"/>
+            <target name="-after-init"/>
+
+        The "build" target performs the call to Sencha Cmd to build the application.
+
+            <target name="-before-build"/>
+            <target name="-after-build"/>
+    -->
+
+    <!--
+    Сохранение новой версии
+    -->
+    <target name="-before-build" depends="upgrade-build-version,load-version-properties">
+        <var name="release" value="${version.major}.${version.minor}.${version.patch}" />
+        <var name="full" value="${version.major}.${version.minor}.${version.patch}.${version.build}" />
+        
+        <propertyfile file="${version.file}">
+            <entry operation="="
+                   key="version.major"
+                   value="${version.major}"/>
+            <entry operation="="
+                   key="version.minor"
+                   value="${version.minor}"/>
+            <entry operation="="
+                   key="version.patch"
+                   value="${version.patch}"/>
+            <entry operation="="
+                   key="version.build"
+                   value="${version.build}"/>
+            <entry operation="="
+                   key="version.release"
+                   value="${release}"/>
+            <entry operation="="
+                   key="version.full"
+                   value="${full}"/>
+        </propertyfile>
+
+        <script language="javascript">
+            <![CDATA[
+            function leftPad(string, size, character){
+                var result = String(string);
+                
+                character = character || " ";
+                while (result.length < size) {
+                    result = character + result;
+                }
+                
+                return result;
+            }
+            var version = project.getProperty("full").split('.');
+            
+            project.setProperty("version.acode",
+                version[0] +
+                leftPad(version[1], 2, '0') + 
+                leftPad(version[2], 2, '0') +
+                leftPad(version[3], 3, '0'));
+            ]]>
+        </script>
+
+        <x-echo>release: ${release} (${version.release})  ACode: ${version.acode}</x-echo>
+        <x-echo>full: ${full} (${version.full})</x-echo>
+        
+        <!--
+        Версии в package.json в корне workspace
+        -->
+        <replaceregexp match="&quot;version&quot;: &quot;(\d+.\d+.\d+(.\d+)*)&quot;," replace="&quot;version&quot;: &quot;${full}&quot;," flags="g" byline="true">
+            <fileset dir="${workspace.dir}" includes="package.json"/>
+        </replaceregexp>
+        <replaceregexp match="&quot;compatVersion&quot;: &quot;(\d+.\d+.\d+)&quot;," replace="&quot;compatVersion&quot;: &quot;${release}&quot;," flags="g" byline="true">
+            <fileset dir="${workspace.dir}" includes="package.json"/>
+        </replaceregexp>
+
+        <!--
+        Версии в одноименном package.json
+        -->
+        <replaceregexp match="&quot;version&quot;: &quot;(\d+.\d+.\d+(.\d+)*)&quot;," replace="&quot;version&quot;: &quot;${full}&quot;," flags="g" byline="true">
+            <fileset dir="${workspace.packages.dir}/${package.name}" includes="package.json"/>
+        </replaceregexp>
+        <replaceregexp match="&quot;compatVersion&quot;: &quot;(\d+.\d+.\d+)&quot;," replace="&quot;compatVersion&quot;: &quot;${release}&quot;," flags="g" byline="true">
+            <fileset dir="${workspace.packages.dir}/${package.name}" includes="package.json"/>
+        </replaceregexp>
+
+        <!--
+        Версии во всех приложениях
+        -->
+        <replaceregexp match="&quot;version&quot;: &quot;(\d+.\d+.\d+(.\d+)*)&quot;," replace="&quot;version&quot;: &quot;${release}&quot;," flags="g" byline="true">
+            <fileset dir="${workspace.dir}" includes="**/app.json"/>
+        </replaceregexp>
+
+        <!--
+        android-versionCode во всех мобильных приложениях в config.xml
+        -->
+        <replaceregexp match="android-versionCode=&quot;(\d*)&quot;" replace="android-versionCode=&quot;${version.acode}&quot;" flags="g" byline="true">
+            <fileset dir="${workspace.dir}" includes="**/config.xml"/>
+        </replaceregexp>
+
+        <!--
+        ios-CFBundleShortVersionString во всех мобильных приложениях в config.xml
+        -->
+        <replaceregexp match="ios-CFBundleShortVersionString=&quot;(\d+.\d+.\d+(.\d+)*)&quot;" replace="ios-CFBundleShortVersionString=&quot;${release}&quot;" flags="g" byline="true">
+            <fileset dir="${workspace.dir}" includes="**/config.xml"/>
+        </replaceregexp>
+
+        <!--
+        ios-CFBundleVersion во всех мобильных приложениях в config.xml
+        -->
+        <replaceregexp match="ios-CFBundleVersion=&quot;(\d*)&quot;" replace="ios-CFBundleVersion=&quot;${version.build}&quot;" flags="g" byline="true">
+            <fileset dir="${workspace.dir}" includes="**/config.xml"/>
+        </replaceregexp>
+
+        <!--
+        version во всех мобильных приложениях в config.xml в зависимости от OS сборки
+        -->
+        <if>
+            <os family="mac"/>
+            <then>
+                <x-echo>mac OS</x-echo>
+                <replaceregexp match="version=&quot;(\d+.\d+.\d+(.\d+)*)&quot;" replace="version=&quot;${release}&quot;" flags="g" byline="true">
+                    <fileset dir="${workspace.dir}" includes="**/config.xml"/>
+                </replaceregexp>
+            </then>
+            <else>
+                <x-echo>No mac OS</x-echo>
+                <replaceregexp match="version=&quot;(\d+.\d+.\d+(.\d+)*)&quot;" replace="version=&quot;${full}&quot;" flags="g" byline="true">
+                    <fileset dir="${workspace.dir}" includes="**/config.xml"/>
+                </replaceregexp>
+            </else>
+        </if>
+
+    </target>
+
+    <!--
+    Инкремент номера сборки в файле version.properties
+    -->
+    <target name="upgrade-build-version" depends="default-version-properties">
+        <propertyfile file="${version.file}">
+            <entry key="version.build" type="int" operation="+" value="1"/>
+        </propertyfile>
+    </target>
+
+    <!--
+    Загрузка свойств версий
+    -->
+    <target name="load-version-properties" depends="default-version-properties">
+        <property file="${version.file}"/>
+        <condition property="version.exists" value="true">
+            <available file="${version.file}" type="dir"/>
+        </condition>
+    </target>
+
+    <!--
+    Создание файла "version.properties" при его отсутствии
+    -->
+    <target name="default-version-properties" unless="${version.exists}" depends="init-filename-version-properties">
+        <property name="version.major" value="1"/>
+        <property name="version.minor" value="0"/>
+        <property name="version.patch" value="0"/>
+        <property name="version.build" value="0"/>
+
+        <propertyfile file="${version.file}">
+            <entry operation="="
+                   key="version.major"
+                   value="${version.major}"/>
+            <entry operation="="
+                   key="version.minor"
+                   value="${version.minor}"/>
+            <entry operation="="
+                   key="version.patch"
+                   value="${version.patch}"/>
+            <entry operation="="
+                   key="version.build"
+                   value="${version.build}"/>
+            <entry operation="="
+                   key="version.release"
+                   value="${version.major}.${version.minor}.${version.patch}"/>
+            <entry operation="="
+                   key="version.full"
+                   value="${version.major}.${version.minor}.${version.patch}.${version.build}"/>
+        </propertyfile>
+    </target>
+
+    <!--
+    Установка свойств
+        version.file - файл "version.properties"
+        version.exists - наличие файла
+    -->
+    <target name="init-filename-version-properties">
+        <property name="version.file" value="${workspace.dir}/version.properties"/>
+        <condition property="version.exists" value="true" else="false">
+            <available file="${version.file}" type="file"/>
+        </condition>
+    </target>
+
+    <!--
+    Ручная установка версии
+        sencha ant bump
+        sencha ant [-p version=1.0[.0.53]] bump
+    -->
+    <target name="bump" depends="init,-init-bump,-full-bump,-build-bump">
+        <echoproperties prefix="new.version" />
+
+        <property name="prg.version.release" value="${new.version.major}.${new.version.minor}.${new.version.patch}"/>
+        <property name="prg.version.full" value="${prg.version.release}.${new.version.build}"/>
+
+        <propertyfile file="${version.file}">
+            <entry operation="="
+                   key="version.major"
+                   value="${new.version.major}"/>
+            <entry operation="="
+                   key="version.minor"
+                   value="${new.version.minor}"/>
+            <entry operation="="
+                   key="version.patch"
+                   value="${new.version.patch}"/>
+            <entry operation="="
+                   key="version.build"
+                   value="${new.version.build}"/>
+            <entry operation="="
+                   key="version.release"
+                   value="${prg.version.release}"/>
+            <entry operation="="
+                   key="version.full"
+                   value="${prg.version.full}"/>
+        </propertyfile>
+
+        <script language="javascript">
+            <![CDATA[
+            function leftPad(string, size, character){
+                var result = String(string);
+                
+                character = character || " ";
+                while (result.length < size) {
+                    result = character + result;
+                }
+                
+                return result;
+            }
+            var version = project.getProperty("prg.version.full").split('.');
+            
+            project.setProperty("version.acode",
+                version[0] +
+                leftPad(version[1], 2, '0') + 
+                leftPad(version[2], 2, '0') +
+                leftPad(version[3], 3, '0'));
+            ]]>
+        </script>
+
+        <x-echo>release: ${prg.version.release}  ACode: ${version.acode}</x-echo>
+        <x-echo>full: ${prg.version.full}</x-echo>
+
+        <replaceregexp match="&quot;version&quot;: &quot;(\d+.\d+.\d+(.\d+)*)&quot;," replace="&quot;version&quot;: &quot;${prg.version.full}&quot;," flags="g" byline="true">
+            <fileset dir="${workspace.dir}" includes="package.json"/>
+        </replaceregexp>
+        <replaceregexp match="&quot;compatVersion&quot;: &quot;(\d+.\d+.\d+)&quot;," replace="&quot;compatVersion&quot;: &quot;${prg.version.release}&quot;," flags="g" byline="true">
+            <fileset dir="${workspace.dir}" includes="package.json"/>
+        </replaceregexp>
+
+        <replaceregexp match="&quot;version&quot;: &quot;(\d+.\d+.\d+(.\d+)*)&quot;," replace="&quot;version&quot;: &quot;${prg.version.full}&quot;," flags="g" byline="true">
+            <fileset dir="${workspace.packages.dir}/${package.name}" includes="package.json"/>
+        </replaceregexp>
+        <replaceregexp match="&quot;compatVersion&quot;: &quot;(\d+.\d+.\d+)&quot;," replace="&quot;compatVersion&quot;: &quot;${prg.version.release}&quot;," flags="g" byline="true">
+            <fileset dir="${workspace.packages.dir}/${package.name}" includes="package.json"/>
+        </replaceregexp>
+
+        <replaceregexp match="&quot;version&quot;: &quot;(\d+.\d+.\d+(.\d+)*)&quot;," replace="&quot;version&quot;: &quot;${prg.version.full}&quot;," flags="g" byline="true">
+            <fileset dir="${workspace.dir}" includes="**/app.json"/>
+        </replaceregexp>
+        <replaceregexp match="&quot;compatVersion&quot;: &quot;(\d+.\d+.\d+)&quot;," replace="&quot;compatVersion&quot;: &quot;${prg.version.release}&quot;," flags="g" byline="true">
+            <fileset dir="${workspace.dir}" includes="**/app.json"/>
+        </replaceregexp>
+
+        <!--
+        android-versionCode во всех мобильных приложениях в config.xml
+        -->
+        <replaceregexp match="android-versionCode=&quot;(\d*)&quot;" replace="android-versionCode=&quot;${version.acode}&quot;" flags="g" byline="true">
+            <fileset dir="${workspace.dir}" includes="**/config.xml"/>
+        </replaceregexp>
+
+        <!--
+        ios-CFBundleShortVersionString во всех мобильных приложениях в config.xml
+        -->
+        <replaceregexp match="ios-CFBundleShortVersionString=&quot;(\d+.\d+.\d+(.\d+)*)&quot;" replace="ios-CFBundleShortVersionString=&quot;${prg.version.release}&quot;" flags="g" byline="true">
+            <fileset dir="${workspace.dir}" includes="**/config.xml"/>
+        </replaceregexp>
+
+        <!--
+        ios-CFBundleVersion во всех мобильных приложениях в config.xml
+        -->
+        <replaceregexp match="ios-CFBundleVersion=&quot;(\d*)&quot;" replace="ios-CFBundleVersion=&quot;${new.version.build}&quot;" flags="g" byline="true">
+            <fileset dir="${workspace.dir}" includes="**/config.xml"/>
+        </replaceregexp>
+
+        <!--
+        version во всех мобильных приложениях в config.xml в зависимости от OS сборки
+        -->
+        <if>
+            <os family="mac"/>
+            <then>
+                <x-echo>mac OS</x-echo>
+                <replaceregexp match="version=&quot;(\d+.\d+.\d+(.\d+)*)&quot;" replace="version=&quot;${prg.version.release}&quot;" flags="g" byline="true">
+                    <fileset dir="${workspace.dir}" includes="**/config.xml"/>
+                </replaceregexp>
+            </then>
+            <else>
+                <x-echo>No mac OS</x-echo>
+                <replaceregexp match="version=&quot;(\d+.\d+.\d+(.\d+)*)&quot;" replace="version=&quot;${prg.version.full}&quot;" flags="g" byline="true">
+                    <fileset dir="${workspace.dir}" includes="**/config.xml"/>
+                </replaceregexp>
+            </else>
+        </if>
+
+        <!--
+        <for param="application">
+            <dirset dir="${workspace.dir}" includes="*"/>
+            <sequential>
+                <if>
+                    <available file="@{application}/app.json"/>
+                    <then>
+                        <local name="application.name"/>
+                        <basename property="application.name" file="@{application}"/>
+                        <copy todir="@{application}" overwrite="true">
+                            <fileset file="${version.file}"/>
+                        </copy>
+                    </then>
+                </if>
+            </sequential>
+        </for>
+        -->
+    </target>
+
+    <target name="-init-bump">
+        <condition property="set.version.full" value="true">
+            <isset property="version"/>
+        </condition>
+        <condition property="set.version.bump" value="true">
+            <not>
+                <isset property="version"/>
+            </not>
+        </condition>
+        <echo message="${set.version.full}" />
+        <echo message="${set.version.bump}" />
+        <echo message="${version}" />
+    </target>
+
+    <!--
+    -->
+    <target name="-full-bump" if="set.version.full">
+        <echo message="set version full" />
+        <var name="index" value="0"/>
+        <var name="part0" value="major"/>
+        <var name="part1" value="minor"/>
+        <var name="part2" value="patch"/>
+        <var name="part3" value="build"/>
+        <for list="${version}" delimiter="." param = "val">
+            <sequential>
+                <var name="part" value="$${part${index}}" />
+                <property name="new.version.${part}"  value="@{val}"/>
+                <math result="index" operand1="${index}" operation="+" operand2="1" datatype="int" />
+            </sequential>
+        </for>
+        <property name="new.version.patch" value="0"/>
+        <property name="new.version.build" value="0"/>
+    </target>
+
+    <!--
+    -->
+    <target name="-build-bump" depends="load-version-properties" if="set.version.bump">
+        <echo message="set version bump" />
+        <var name="ver.patch" value="${version.patch}"/>
+        <math result="ver.patch" operand1="${ver.patch}" operation="+" operand2="1" datatype="int" />
+        <property name="new.version.major" value="${version.major}"/>
+        <property name="new.version.minor" value="${version.minor}"/>
+        <property name="new.version.patch" value="${ver.patch}"/>
+        <property name="new.version.build" value="0"/>
+    </target>
+
+</project>

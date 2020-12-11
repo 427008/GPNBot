@@ -1,0 +1,30 @@
+﻿
+$tabbar-background-color: dynamic(null);
+$tabbar-background-gradient: dynamic(null);
+
+$tabbar-box-shadow: dynamic(none);
+$tabbar-border-width: dynamic(0);
+$tabbar-border-style: dynamic(null);
+$tabbar-border-color: dynamic(null);
+
+$tab-background-color: dynamic(transparent);
+$tab-hovered-background-color: dynamic($tab-background-color);
+$tab-pressed-background-color: dynamic($tab-background-color);
+$tab-active-background-color: dynamic($tab-background-color);
+
+$tab-color: dynamic($base-color);
+$tab-font-weight: dynamic(500);
+
+$tab-padding: dynamic(8px);
+$tab-padding-big: dynamic(null);
+
+$tab-active-indicator-height: dynamic(4px);
+//$tab-active-indicator-background-color: dynamic($background-color);
+
+$tab-badge-font-size: dynamic(1px);
+$tab-badge-font-size-big: dynamic(1px);
+$tab-badge-line-height: dynamic(1px);
+$tab-badge-line-height-big: dynamic(1px);
+$tab-badge-max-width: dynamic(9px);
+$tab-badge-min-width: dynamic(9px);
+$tab-badge-top: dynamic(2px !important);
